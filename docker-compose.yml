@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:6.5.3-php8.1-apache
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: clouduser
+      WORDPRESS_DB_PASSWORD: supersecurepass
+      WORDPRESS_DB_NAME: cloudboosta_wp
+    volumes:
+      - cloudboosta_wordpress_data:/var/www/html
+      - ./gutenify-restaurant:/var/www/html/wp-content/themes/gutenify-restaurant
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: cloudboosta_wp
+      MYSQL_USER: clouduser
+      MYSQL_PASSWORD: supersecurepass
+      MYSQL_ROOT_PASSWORD: root1234
+    volumes:
+      - cloudboosta_db_data:/var/lib/mysql
+
+volumes:
+  cloudboosta_wordpress_data:
+  cloudboosta_db_data:
