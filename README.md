@@ -1,2 +1,3 @@
 # cloudboosta-wordpress
 corrected
+edited
